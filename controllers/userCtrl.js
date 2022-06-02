@@ -64,8 +64,9 @@ exports.login = (req, res, next) => {
               `${process.env.JWT_KEY}`,
               { expiresIn: "24h" }
             );
+            res.cookie("jwt", token, { httpOnly: true, maxAge: 86400000 });
 
-            res.status(201).json({
+            res.status(200).json({
               user_id: results[0].user_id,
               token,
             });
@@ -74,6 +75,12 @@ exports.login = (req, res, next) => {
       }
     }
   );
+};
+
+exports.logout = (req, res) => {
+  console.log("coucou");
+  res.cookie("jwt", "", { maxAge: 1 });
+  res.redirect("/");
 };
 
 // FONCTION DELETE ACCOUNT
