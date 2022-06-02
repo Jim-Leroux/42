@@ -2,7 +2,7 @@
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 
-module.exports = (req, res, next) => {
+exports.auth = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
 
@@ -21,4 +21,8 @@ module.exports = (req, res, next) => {
       error: error,
     });
   }
+};
+
+exports.checkUser = (req, res, next) => {
+  const token = req.cookie.jwt;
 };

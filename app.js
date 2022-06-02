@@ -1,6 +1,15 @@
 // IMPORT D'EXPRESS
 const express = require("express");
 
+// IMPORT DE COOKIE-PARSER
+const cookieParser = "cookie-parser";
+
+// IMPORT DE CORS
+const cors = require("cors");
+
+// IMPORT DE DOTENV
+const dotenv = require("dotenv").config({ path: "./.env" });
+
 // IMPORT DES ROUTES
 const userRoutes = require("./routes/userRoutes");
 const userInfoRoutes = require("./routes/userInfoRoutes");
@@ -17,21 +26,21 @@ const path = require("path");
 const app = express();
 
 // GESTION DES PROBLÈMES CORS
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-  );
-  next();
-});
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+  allowedHeaders: ["sessionId", "Content-Type"],
+  exposedHeaders: ["sessionId"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+};
+app.use(cors(corsOptions));
 
 // CONVERSION DU BODY EN OBJET JSON
 app.use(express.json());
+
+// CONVERSION DES COOKIES EN JSON
+app.use(cookieParser());
 
 // ROUTE D'AUTHENTIFICATION
 app.use("/api/auth", userRoutes);

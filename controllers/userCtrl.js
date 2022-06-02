@@ -47,7 +47,9 @@ exports.login = (req, res, next) => {
         res.json({ error });
       } else {
         if (results == 0) {
-          return res.status(404).json({ error: "User not found !" });
+          return res
+            .status(200)
+            .json({ error: "Email or password is not valid" });
         }
 
         bcrypt
@@ -55,7 +57,7 @@ exports.login = (req, res, next) => {
           .then((passwordControl) => {
             if (!passwordControl) {
               return res
-                .status(401)
+                .status(200)
                 .json({ error: "Email or password is not valid" });
             }
 
@@ -80,7 +82,7 @@ exports.login = (req, res, next) => {
 exports.logout = (req, res) => {
   console.log("coucou");
   res.cookie("jwt", "", { maxAge: 1 });
-  res.redirect("/");
+  res.status(200).json({ message: "disconected" });
 };
 
 // FONCTION DELETE ACCOUNT
