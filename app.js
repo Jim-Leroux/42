@@ -2,6 +2,7 @@
 const express = require("express");
 
 // IMPORT DE COOKIE-PARSER
+const { checkUser } = require("./middleware/auth");
 const cookieParser = "cookie-parser";
 
 // IMPORT DE CORS
@@ -41,6 +42,9 @@ app.use(express.json());
 
 // CONVERSION DES COOKIES EN JSON
 app.use(cookieParser());
+
+// JWT
+app.get("*", checkUser);
 
 // ROUTE D'AUTHENTIFICATION
 app.use("/api/auth", userRoutes);

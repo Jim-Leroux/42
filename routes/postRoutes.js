@@ -15,11 +15,11 @@ const router = express.Router();
 
 // ENDPOINT
 
-router.post("/", auth, multer, postCtrl.createOne);
+router.post("/", auth.auth, multer, postCtrl.createOne);
 router.get("/", multer, postCtrl.readAll);
-router.get("/:id", auth, multer, postCtrl.readOne);
-router.put("/:id", auth, multer, postCtrl.updateOne);
-router.delete("/:id", auth, multer, postCtrl.deleteOne);
-//router.post("/:id/like", auth, like.likeUserInfo);
+router.get("/:id", auth.auth, multer, postCtrl.readOne);
+router.put("/:id", auth.auth, multer, postCtrl.updateOne);
+router.delete("/:id", auth.auth, multer, postCtrl.deleteOne);
+//router.post("/:id/like", auth.auth, like.likeUserInfo);
 
 module.exports = router;

@@ -14,10 +14,10 @@ const multer = require("../middleware/multer");
 const router = express.Router();
 
 // ENDPOINT
-router.post("/", auth, multer, userInfoCtrl.createUserInfo);
-router.get("/", auth, multer, userInfoCtrl.readAllUserInfo);
-router.get("/:id", auth, multer, userInfoCtrl.readOneUserInfo);
-router.put("/:id", auth, multer, userInfoCtrl.updateOneUserInfo);
-router.delete("/:id", auth, multer, userInfoCtrl.deleteOneUserInfo);
+router.post("/", auth.auth, multer, userInfoCtrl.createUserInfo);
+router.get("/", auth.auth, multer, userInfoCtrl.readAllUserInfo);
+router.get("/:id", auth.auth, multer, userInfoCtrl.readOneUserInfo);
+router.put("/:id", auth.auth, multer, userInfoCtrl.updateOneUserInfo);
+router.delete("/:id", auth.auth, multer, userInfoCtrl.deleteOneUserInfo);
 
 module.exports = router;

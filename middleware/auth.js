@@ -1,6 +1,8 @@
 // IMPORT DES PACKAGES
 const jwt = require("jsonwebtoken");
+const UserModel = require("../models/userModel");
 const dotenv = require("dotenv");
+const mysqlconnection = require("../db/db.js");
 
 exports.auth = (req, res, next) => {
   try {
@@ -24,16 +26,31 @@ exports.auth = (req, res, next) => {
 };
 
 exports.checkUser = (req, res, next) => {
-  const token = req.cookie.jwt;
+  const token = res.cookie.jwt;
   if (token) {
     jwt.verify(token, process.env.JWT_KEY, async (err, decodedToken) => {
       if (err) {
         res.locals.user = null;
-        res.cookie('jwt', '', { maxAge: 1 });
+        res.cookie("jwt", "", { maxAge: 1 });
         next();
       } else {
-        let user = await 
+        let user = mysqlconnection.query(
+          "SELECT * FROM `user` WHERE `user_id` = ?",
+          [decodedToken.user_id],
+          (error, results) => {
+            if (error) {
+              res.json({ error });
+            } else {
+              res.locals.user = user;
+              console.log(user);
+              next();
+            }
+          }
+        );
       }
-    })
+    });
+  } else {
+    res.locals.user = null;
+    next();
   }
 };

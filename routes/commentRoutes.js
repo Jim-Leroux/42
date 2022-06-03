@@ -12,11 +12,11 @@ const router = express.Router();
 
 // ENDPOINT
 
-router.post("/", auth, commentCtrl.createOne);
-router.get("/", auth, commentCtrl.readAll);
-router.get("/:id", auth, commentCtrl.readOne);
-router.put("/:id", auth, commentCtrl.updateOne);
-router.delete("/:id", auth, commentCtrl.deleteOne);
+router.post("/", auth.auth, commentCtrl.createOne);
+router.get("/", auth.auth, commentCtrl.readAll);
+router.get("/:id", auth.auth, commentCtrl.readOne);
+router.put("/:id", auth.auth, commentCtrl.updateOne);
+router.delete("/:id", auth.auth, commentCtrl.deleteOne);
 //router.post("/:id/like", auth, like.likeUserInfo);
 
 module.exports = router;
