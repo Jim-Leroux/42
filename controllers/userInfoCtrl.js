@@ -8,7 +8,6 @@ const { json } = require("express/lib/response");
 
 exports.createUserInfo = async (req, res) => {
   const userObject = JSON.parse(req.body.userInfo);
-  console.log(req.body);
   const {
     userInfo_user_id,
     userInfo_user_firstname,

@@ -25,6 +25,8 @@ router.post("/login", userCtrl.login);
 
 router.get("/logout", userCtrl.logout);
 
+router.get("/jwtid", auth.auth, userCtrl.jwtid);
+
 router.delete("/delete/:id", auth.auth, userCtrl.deleteOne);
 
 // EXPORT DU MODULE

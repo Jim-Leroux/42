@@ -85,6 +85,20 @@ exports.logout = (req, res) => {
   res.status(200).json({ message: "disconected" });
 };
 
+exports.jwtid = (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  if (token) {
+    const decodedToken = jwt.verify(token, `${process.env.JWT_KEY}`);
+
+    const userId = decodedToken.user_id;
+
+    res.status(200).send(userId);
+  } else {
+    res.status(500).json({ message: "Error server" });
+  }
+};
+
 // FONCTION DELETE ACCOUNT
 exports.deleteOne = (req, res) => {
   try {
