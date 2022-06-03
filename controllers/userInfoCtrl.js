@@ -6,50 +6,6 @@ const mysqlconnection = require("../db/db");
 const { log } = require("console");
 const { json } = require("express/lib/response");
 
-exports.createUserInfo = async (req, res) => {
-  const userObject = JSON.parse(req.body.userInfo);
-  const {
-    userInfo_user_id,
-    userInfo_user_firstname,
-    userInfo_user_name,
-    userInfo_user_email,
-  } = userObject;
-
-  const imageUrl = `${req.protocol}://${req.get("host")}/images/${
-    req.file.filename
-  }`;
-
-  const user = new userInfo(
-    userInfo_user_id,
-    userInfo_user_firstname,
-    userInfo_user_name,
-    userInfo_user_email,
-    imageUrl
-  );
-  const values = [
-    userInfo_user_id,
-    userInfo_user_firstname,
-    userInfo_user_name,
-    userInfo_user_email,
-    imageUrl,
-  ];
-
-  try {
-    const userInfo = await mysqlconnection.query(
-      "INSERT INTO `userInfo`(userInfo_user_id, userInfo_user_firstname, userInfo_user_name, userInfo_user_email, userInfo_User_picture) VALUES (?)",
-      [values],
-      (error, results) => {
-        if (error) {
-          res.json({ error });
-        } else {
-          res.status(201).json({ results });
-        }
-      }
-    );
-  } catch (error) {
-    res.status(500).json({ error: error });
-  }
-};
 exports.readAllUserInfo = async (req, res) => {
   try {
     const userInfo = await mysqlconnection.query(
@@ -182,17 +138,17 @@ exports.deleteOneUserInfo = async (req, res) => {
         if (error) {
           res.json({ error });
         } else {
+          console.log(results);
           if (results == 0) {
             return res.status(404).json({ message: "Nothing to delete" });
           }
-          if (req.query.user_id == results[0].userInfo_user_id) {
-            const filename =
-              results[0].userInfo_User_picture.split("/images/")[1];
+          if (req.params.id == results[0].user_id) {
+            const filename = results[0].user_picture.split("/images/")[1];
 
             fs.unlink(`images/${filename}`, (error) => {
               if (error) throw error;
             });
-            const querySql = `DELETE FROM userInfo WHERE userInfo_id = ?`;
+            const querySql = `DELETE FROM user WHERE user_id = ?`;
             const values = [id];
             mysqlconnection.query(querySql, values, (error, results) => {
               if (error) {

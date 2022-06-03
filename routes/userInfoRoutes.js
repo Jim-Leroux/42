@@ -14,7 +14,6 @@ const multer = require("../middleware/multer");
 const router = express.Router();
 
 // ENDPOINT
-router.post("/", auth.auth, multer, userInfoCtrl.createUserInfo);
 router.get("/", auth.auth, multer, userInfoCtrl.readAllUserInfo);
 router.get("/:id", auth.auth, multer, userInfoCtrl.readOneUserInfo);
 router.put("/:id", auth.auth, multer, userInfoCtrl.updateOneUserInfo);

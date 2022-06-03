@@ -36,8 +36,6 @@ app.use(cors(corsOptions));
 // CONVERSION DU BODY EN OBJET JSON
 app.use(express.json());
 
-app.use("/api/auth", userRoutes);
-
 // ROUTE D'AUTHENTIFICATION
 app.use("/api/auth", userRoutes);
 

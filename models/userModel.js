@@ -6,7 +6,9 @@ const dotenv = require("dotenv");
 dotenv.config();*/
 
 class User {
-  constructor(email, password) {
+  constructor(firstname, name, email, password) {
+    this.user_firstname = firstname;
+    this.user_name = name;
     this.user_email = email;
     this.user_password = password;
   }

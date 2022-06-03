@@ -1,6 +1,9 @@
 // IMPORT D'EXPRESS
 const express = require("express");
 
+// IMPORT DU MIDDLEWARE MULTER
+const multer = require("../middleware/multer");
+
 // IMPORT DU MIDDLEWARE D'AUTHENTIFICATION
 const auth = require("../middleware/auth");
 
@@ -25,9 +28,15 @@ router.post("/login", userCtrl.login);
 
 router.get("/logout", userCtrl.logout);
 
-router.get("/jwtid", auth.auth, userCtrl.jwtid);
+router.get("/", auth.auth, multer, userCtrl.readAllUser);
 
-router.delete("/delete/:id", auth.auth, userCtrl.deleteOne);
+router.get("/:id", auth.auth, multer, userCtrl.readOneUser);
+
+router.put("/:id", auth.auth, multer, userCtrl.updateOneUser);
+
+router.delete("/:id", auth.auth, multer, userCtrl.deleteOneUser);
+
+router.get("/jwtid", userCtrl.jwtid);
 
 // EXPORT DU MODULE
 module.exports = router;

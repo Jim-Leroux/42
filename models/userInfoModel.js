@@ -1,17 +1,19 @@
-class userInfo {
+class user {
   constructor(
-    userInfo_user_id,
-    userInfo_user_firstname,
-    userInfo_user_name,
-    userInfo_user_email,
-    userInfo_User_picture
+    user_id,
+    user_firstname,
+    user_name,
+    user_email,
+    user_password,
+    user_picture
   ) {
-    this.userInfo_user_id = userInfo_user_id;
-    this.userInfo_user_firstname = userInfo_user_firstname;
-    this.userInfo_user_name = userInfo_user_name;
-    this.userInfo_user_email = userInfo_user_email;
-    this.userInfo_User_picture = userInfo_User_picture;
+    this.user_id = user_id;
+    this.user_firstname = user_firstname;
+    this.user_name = user_name;
+    this.user_email = user_email;
+    this.user_password = user_password;
+    this.user_picture = user_picture;
   }
 }
 
-module.exports = userInfo;
+module.exports = user;
