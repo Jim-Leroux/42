@@ -22,7 +22,7 @@ const router = express.Router();
 
 // ENDPOINT
 
-router.post("/signup", userCtrl.signup);
+router.post("/signup", multer, userCtrl.signup);
 
 router.post("/login", userCtrl.login);
 

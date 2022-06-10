@@ -20,12 +20,16 @@ const fs = require("fs");
 exports.signup = (req, res, next) => {
   const { firstname, name, email, password } = req.body;
 
-  const user = new User(firstname, name, email, password);
+  const picture = `${req.protocol}://${req.get("host")}/images/user-icon.${
+    req.body.name
+  }`;
+
+  const user = new User(firstname, name, email, password, picture);
 
   bcrypt
     .hash(password, 10)
     .then((hash) => {
-      const user = new User(firstname, name, email, hash);
+      const user = new User(firstname, name, email, hash, picture);
       mysqlconnection.query("INSERT INTO user SET ?", user, (error) => {
         if (error) {
           res.json({ error });

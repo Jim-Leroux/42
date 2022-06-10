@@ -6,11 +6,12 @@ const dotenv = require("dotenv");
 dotenv.config();*/
 
 class User {
-  constructor(firstname, name, email, password) {
+  constructor(firstname, name, email, password, picture) {
     this.user_firstname = firstname;
     this.user_name = name;
     this.user_email = email;
     this.user_password = password;
+    this.user_picture = picture;
   }
 
   /*emailCrypt() {
