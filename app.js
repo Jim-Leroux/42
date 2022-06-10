@@ -9,7 +9,6 @@ const dotenv = require("dotenv").config({ path: "./.env" });
 
 // IMPORT DES ROUTES
 const userRoutes = require("./routes/userRoutes");
-const userInfoRoutes = require("./routes/userInfoRoutes");
 const postRoutes = require("./routes/postRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 
@@ -38,9 +37,6 @@ app.use(express.json());
 
 // ROUTE D'AUTHENTIFICATION
 app.use("/api/auth", userRoutes);
-
-// ROUTE USER INFO
-app.use("/api/userInfo", userInfoRoutes);
 
 // ROUTES POST
 app.use("/api/post", postRoutes);

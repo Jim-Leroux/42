@@ -20,9 +20,21 @@ const fs = require("fs");
 exports.signup = (req, res, next) => {
   const { firstname, name, email, password } = req.body;
 
-  const picture = `${req.protocol}://${req.get("host")}/images/user-icon.${
+  fs.copyFile(
+    "images/user-icon.png",
+    `images/user-icon-copie${req.body.name}.png`,
+    (err) => {
+      if (err) {
+        console.log("Copy failed", err);
+      }
+    }
+  );
+
+  console.log(req);
+
+  const picture = `${req.protocol}://${req.get("host")}/images/user-icon-copie${
     req.body.name
-  }`;
+  }.png`;
 
   const user = new User(firstname, name, email, password, picture);
 
@@ -235,13 +247,11 @@ exports.deleteOneUser = async (req, res) => {
         if (error) {
           res.json({ error });
         } else {
-          console.log(results);
           if (results == 0) {
             return res.status(404).json({ message: "Nothing to delete" });
           }
           if (req.params.id == results[0].user_id) {
             const filename = results[0].user_picture.split("/images/")[1];
-
             fs.unlink(`images/${filename}`, (error) => {
               if (error) throw error;
             });
