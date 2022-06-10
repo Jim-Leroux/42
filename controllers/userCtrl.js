@@ -222,12 +222,17 @@ exports.updateOneUser = async (req, res) => {
 };
 
 exports.jwtid = (req, res) => {
+  console.log("coucou");
   const token = req.headers.cookie.split("=")[1];
+
+  console.log("coucou");
 
   if (token) {
     const decodedToken = jwt.verify(token, `${process.env.JWT_KEY}`);
 
     const userId = decodedToken.user_id;
+
+    console.log(res);
 
     res.status(200).json(userId);
   } else {

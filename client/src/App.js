@@ -17,10 +17,12 @@ const App = () => {
           console.log(res);
           setUid(res.data);
         })
-        .catch((err) => console.log("No token"));
+        .catch((err) => {
+          console.log("No token");
+        });
     };
     fetchToken();
-  });
+  }, [uid]);
   return (
     <UidContext.Provider value={uid}>
       <Routes />
