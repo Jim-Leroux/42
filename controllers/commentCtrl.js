@@ -6,7 +6,6 @@ const mysqlconnection = require("../db/db");
 const { log } = require("console");
 
 exports.createOne = (req, res) => {
-  console.log(req.body);
   const commentObject = req.body.comment;
 
   const { comment_user_id, comment_post_id, comment_content } = commentObject;

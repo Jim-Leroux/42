@@ -30,13 +30,13 @@ router.get("/logout", userCtrl.logout);
 
 router.get("/", auth.auth, multer, userCtrl.readAllUser);
 
+router.get("/jwtid", userCtrl.jwtid);
+
 router.get("/:id", auth.auth, multer, userCtrl.readOneUser);
 
 router.put("/:id", auth.auth, multer, userCtrl.updateOneUser);
 
 router.delete("/:id", auth.auth, multer, userCtrl.deleteOneUser);
-
-router.get("/jwtid", userCtrl.jwtid);
 
 // EXPORT DU MODULE
 module.exports = router;

@@ -30,8 +30,6 @@ exports.signup = (req, res, next) => {
     }
   );
 
-  console.log(req);
-
   const picture = `${req.protocol}://${req.get("host")}/images/user-icon-copie${
     req.body.name
   }.png`;
@@ -98,7 +96,6 @@ exports.login = (req, res, next) => {
 };
 
 exports.logout = (req, res) => {
-  console.log("coucou");
   res.cookie("jwt", "", { maxAge: 1 });
   res.status(200).json({ message: "disconected" });
 };
@@ -222,7 +219,6 @@ exports.updateOneUser = async (req, res) => {
 };
 
 exports.jwtid = (req, res) => {
-  console.log("coucou");
   const token = req.headers.cookie.split("=")[1];
 
   console.log("coucou");
