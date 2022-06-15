@@ -15,6 +15,7 @@ const mysqlconnection = require("../db/db.js");
 //const { response } = require("express");
 
 const fs = require("fs");
+const { log } = require("console");
 
 // FONCTION SIGN UP
 exports.signup = (req, res, next) => {
@@ -221,14 +222,10 @@ exports.updateOneUser = async (req, res) => {
 exports.jwtid = (req, res) => {
   const token = req.headers.cookie.split("=")[1];
 
-  console.log("coucou");
-
   if (token) {
     const decodedToken = jwt.verify(token, `${process.env.JWT_KEY}`);
 
     const userId = decodedToken.user_id;
-
-    console.log(res);
 
     res.status(200).json(userId);
   } else {
